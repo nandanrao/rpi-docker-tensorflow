@@ -13,10 +13,17 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         python-numpy \
         python-scipy \
         rsync \
+        libavformat-dev \
+        libpq-dev \
+        libjpeg-dev \
+        rpi-update \
+        zlib1g-dev \
         unzip
 
-RUN  apt-get clean && \
+RUN apt-get clean && \
         rm -rf /var/lib/apt/lists/*
+
+RUN rpi-update
 
 RUN curl -O https://bootstrap.pypa.io/get-pip.py && \
     python get-pip.py && \
@@ -25,6 +32,8 @@ RUN curl -O https://bootstrap.pypa.io/get-pip.py && \
 RUN pip --no-cache-dir install \
         ipykernel \
         jupyter \
+        Pillow \
+        picamera \
         matplotlib && \
             python -m ipykernel.kernelspec
 
@@ -34,7 +43,7 @@ RUN wget https://github.com/samjabrahams/tensorflow-on-raspberry-pi/releases/dow
 RUN pip install tensorflow-1.1.0-cp27-none-linux_armv7l.whl
 
 # Now that we have tensorflow, install keras!
-RUN pip --no-cache-dir install keras
+RUN pip --no-cache-dir install keras mock
 
 COPY jupyter_notebook_config.py /root/.jupyter/
 
