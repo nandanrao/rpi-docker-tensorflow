@@ -18,6 +18,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         libjpeg-dev \
         rpi-update \
         zlib1g-dev \
+        libhdf5-dev \
         unzip
 
 RUN apt-get clean && \
@@ -33,6 +34,7 @@ RUN pip --no-cache-dir install \
         ipykernel \
         jupyter \
         Pillow \
+        h5py \
         picamera \
         matplotlib && \
             python -m ipykernel.kernelspec
