@@ -47,6 +47,10 @@ RUN pip install tensorflow-1.1.0-cp27-none-linux_armv7l.whl
 # Now that we have tensorflow, install keras!
 RUN pip --no-cache-dir install keras mock
 
+# This works to get vc on ld library path, but probably a better way...
+RUN echo '/opt/vc/lib' >> /etc/ld.so.conf.d/vc.conf
+RUN sudo ldconfig
+
 COPY jupyter_notebook_config.py /root/.jupyter/
 
 # Copy sample notebooks.
